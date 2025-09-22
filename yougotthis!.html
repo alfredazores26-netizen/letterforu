@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A Hug for You 🤗</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(-45deg, #0b132b, #1c2541, #3a506b, #0b132b);
+    background-size: 400% 400%;
+    animation: gradientBG 18s ease infinite;
+    color: white;
+    text-align: center;
+  }
+
+  @keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+  }
+
+  /* Floating hearts */
+  .heart {
+    position: absolute;
+    font-size: 22px;
+    animation: floatUp 6s linear infinite;
+    opacity: 0.7;
+  }
+  @keyframes floatUp {
+    0% {transform: translateY(100vh) scale(0.8); opacity: 0;}
+    20% {opacity: 1;}
+    100% {transform: translateY(-10vh) scale(1.2); opacity: 0;}
+  }
+
+  /* ASCII Cat */
+  .cat {
+    font-family: monospace;
+    white-space: pre;
+    font-size: 20px;
+    margin: 15px 0;
+    animation: wiggle 2s infinite ease-in-out;
+  }
+  @keyframes wiggle {
+    0%, 100% {transform: translateX(0);}
+    50% {transform: translateX(6px);}
+  }
+
+  /* Envelope */
+  .envelope {
+    position: relative;
+    width: 160px;
+    height: 100px;
+    background: #fff;
+    margin-top: 20px;
+    cursor: pointer;
+    border: 2px solid #ff6f91;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 2; /* make sure it’s clickable */
+  }
+
+  .envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 80px solid transparent;
+    border-right: 80px solid transparent;
+    border-bottom: 60px solid #ff6f91;
+    pointer-events: none; /* so flap doesn’t block click */
+  }
+
+  /* Letter */
+  .letter {
+    position: relative;
+    margin-top: 12px;
+    width: 260px;
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    color: #333;
+    font-size: 15px;
+    text-align: left;
+    line-height: 1.4;
+    display: none;
+    animation: slideDown 0.6s ease forwards;
+  }
+
+  @keyframes slideDown {
+    from {opacity: 0; transform: translateY(-10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+  <h1>A short letter for you + a virtual hug <3 🤗</h1>
+
+  <div class="cat">
+ (=^･ω･^=)っ♡  
+  </div>
+
+  <div class="envelope" id="envelope"></div>
+  <div class="letter" id="letter">
+    <p>Hiya Dee! <3</p>
+
+    <p>I know you’re stressed about your academics and the future in general. You’re doing so much more than you realize. Even when you don't have much confidence in yourself, just know that I do and I have never for one moment doubted you. You have a lot on your shoulders, but I know you're gonna push through it. No exam can measure your worth, no grade can define what kind of person you are. None of those will ever change the Lhady I know and love. And no matter what, I’ll always be here, cheering for you and always sososo proud of you! I just wanted to let you know that you're never gonna be alone going through whatever hardships you may encounter. I know you've probably heard this enough, but I mean it from the bottom of my heart when I say I believe in you, and that you got this! Keep fighting <3</p>
+  </div>
+
+  <script>
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerText = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 4) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }
+    setInterval(createHeart, 1200);
+
+    // Letter toggle
+    const envelope = document.getElementById("envelope");
+    const letter = document.getElementById("letter");
+    envelope.addEventListener("click", () => {
+      if (letter.style.display === "block") {
+        letter.style.display = "none";
+      } else {
+        letter.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
